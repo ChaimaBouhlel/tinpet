@@ -1,6 +1,9 @@
 import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import {AppPropsWithLayout} from "@/types/global";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+
+export default function App({ Component, pageProps }: AppPropsWithLayout<{ dehydratedState?: unknown }>) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+  return getLayout(<Component {...pageProps} />);
 }

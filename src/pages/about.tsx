@@ -4,20 +4,19 @@ import {NextPageWithLayout} from "@/types/global";
 import {ReactElement} from "react";
 import Layout from "@/layout";
 
-const Home: NextPageWithLayout<{}> = () => {
-  return (
-     <>
-         <Banner/>
-         <Categories/>
-     </>
-  )
+const About: NextPageWithLayout<{}> = () => {
+    return (
+        <>
+            <div> About us page</div>
+        </>
+    )
 }
 
-Home.getLayout = function getLayout(page: ReactElement) {
+About.getLayout = function getLayout(page: ReactElement) {
     return (
         <Layout>
             {page}
         </Layout>
     );
 };
-export default Home;
+export default About;
