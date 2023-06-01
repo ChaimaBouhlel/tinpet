@@ -1,10 +1,6 @@
 import { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 
-
-
-
-
 const Form1 = () => {
   
 
@@ -46,7 +42,7 @@ const Form1 = () => {
   
         // Pass the animalId as a query parameter when navigating to Form2
         router.push({
-          pathname: '/formPage2',
+          pathname: '/createPost',
           query: { animalId }
         });
       } else {
@@ -58,9 +54,9 @@ const Form1 = () => {
   };
  
     return (
-        <div className="flex justify-center items-center h-screen">
-          <form className="w-1/3 bg-orange-200 p-6 rounded-md shadow">
-            <h2 className="text-2xl font-bold mb-6 text-orange-800">Form 1</h2>
+        <div className="flex justify-center items-center h-screen p-8">
+          <form className="md:w-1/3 bg-orange-200 p-6 rounded-md shadow mx-auto my-0">
+            <h2 className="text-2xl font-bold mb-6 text-orange-800">Enter animal information</h2>
             <div className="space-y-4">
               <div>
                 <label className="block">

@@ -1,6 +1,9 @@
 import Link from "next/link";
 import {Menu} from "react-feather";
 import {useState} from "react";
+import {useRecoilState, useRecoilValue, useResetRecoilState} from "recoil";
+import authenticatedUser from "@/atoms/authenticatedUser";
+import authentication from "@/atoms/authentication";
 
 const MENU_LIST = [
     {text: "Home", href: "/"},
@@ -11,6 +14,9 @@ const MENU_LIST = [
 
 const Navbar = () => {
     const [smallMenuOpen, setSmallMenuOpen] = useState(false)
+    const authUser=useRecoilValue(authenticatedUser)
+    const resetauthUser=useResetRecoilState(authenticatedUser)
+    const [authState, setAuthState] = useRecoilState(authentication)
     return (
         <>
             <div
@@ -28,10 +34,20 @@ const Navbar = () => {
                 }}>
                     <Menu size={24} color="#92400e"/>
                 </div>
-                <div className="hidden sm:block">
-                    <Link href="register" className="mr-8 font-bold">Sign up</Link>
-                    <Link href="login" className="font-bold">Login</Link>
-                </div>
+                {
+                    !authState?
+                        <div className="hidden sm:block">
+                            <Link href="register" className="mr-8 font-bold">Sign up</Link>
+                            <Link href="login" className="font-bold">Login</Link>
+                        </div>
+                        :
+                        <div className="hidden sm:block">
+                            <Link href="login" className="font-bold" onClick={() => {
+                                setAuthState(false)
+                                resetauthUser()
+                            }}>Logout</Link>
+                        </div>
+                }
             </div>
             {
                 smallMenuOpen?
@@ -41,12 +57,25 @@ const Navbar = () => {
                                 setSmallMenuOpen(!smallMenuOpen)
                             }}> {menu.text}</Link>
                         ))}
-                        <Link href="register" className="font-bold" onClick={() => {
-                            setSmallMenuOpen(!smallMenuOpen)
-                        }}>Sign up</Link>
-                        <Link href="login" className="font-bold" onClick={() => {
-                            setSmallMenuOpen(!smallMenuOpen)
-                        }}>Login</Link>
+                        {
+                            ! authState ?
+                                <div className="pb-4">
+                                    <Link href="register" className="font-bold" onClick={() => {
+                                        setSmallMenuOpen(!smallMenuOpen)
+                                    }}>Sign up</Link>
+                                    <Link href="login" className="font-bold" onClick={() => {
+                                        setSmallMenuOpen(!smallMenuOpen)
+                                    }}>Login</Link>
+                                </div>
+                                :
+                                <div  className="pb-4">
+                                    <Link href="login" className="font-bold" onClick={() => {
+                                        setSmallMenuOpen(!smallMenuOpen)
+                                        setAuthState(false)
+                                        resetauthUser()
+                                    }}>Log out</Link>
+                                </div>
+                        }
                     </div>
                     : null
             }
