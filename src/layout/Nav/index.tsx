@@ -43,7 +43,7 @@ const Navbar = () => {
                         :
                         <div className="flex flex-row">
                             <div className="hidden sm:block">
-                                <Link href="/profile" className="flex flex-row mr-8">
+                                <Link href={`/userProfile?userId=${authUser.id}`} className="flex flex-row mr-8">
                                     <User color="#92400e"/>
                                     <span>{authUser.firstname}</span>
                                 </Link>
@@ -82,7 +82,7 @@ const Navbar = () => {
                                 </div>
                                 :
                                 <div className="pb-4">
-                                    <Link href="/profile" className="flex flex-row mb-8">
+                                    <Link href={`/userProfile?userId=${authUser.id}`} className="flex flex-row mb-8">
                                         <User color="#92400e"/>
                                         <span>{authUser.firstname}</span>
                                     </Link>
