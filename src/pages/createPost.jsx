@@ -1,12 +1,11 @@
 import Form2 from '../components/forms/form2';
 
-const formPage2 = () => {
+const createPost = () => {
   return (
     <div>
-      <h1>Form Page</h1>
       <Form2 />
     </div>
   );
 };
 
-export default formPage2;
+export default createPost;

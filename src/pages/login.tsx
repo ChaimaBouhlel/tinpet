@@ -2,16 +2,17 @@ import Link from "next/link";
 import axios from "axios";
 import {useState} from "react";
 import {useRouter} from "next/router";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useRecoilState, useRecoilValue} from "recoil";
 import authenticatedUser from "@/atoms/authenticatedUser";
 import authentication from "@/atoms/authentication";
+import jwtDecode from "jwt-decode"
 
 
 const Login = () => {
     const router = useRouter()
+    const [authState, setAuthState] = useRecoilState(authentication)
     const [authUser, setAuthUser] = useRecoilState(authenticatedUser)
-    const authState = useRecoilValue(authentication)
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,7 +20,7 @@ const Login = () => {
 
     const mutation = useMutation({
         mutationFn: async (data) => {
-            return await axios.post("http://localhost:3001/auth/login",
+            return await axios.post(process.env.NEXT_PUBLIC_SIGN_IN_URL,
                 {email, password},
                 {
                     headers: {'Content-Type': 'application/json'},
@@ -28,8 +29,14 @@ const Login = () => {
             );
         },
         onSuccess: ({data}) => {
-            console.log(data)
-                //router.push("/")
+            console.log(data.access_token)
+            const payload = jwtDecode(data.access_token)
+            console.log(payload)
+            if(payload.email == email) {
+                setAuthUser({email})
+                console.log(authUser)
+                setAuthState(true)
+            }
         },
         onError: error => {
             setErrMsg(error.message)
@@ -82,7 +89,7 @@ const Login = () => {
                 <p className="mt-2 text-sm text-amber-800">
                     {"Don't have an account?"}
                     <span className="ml-1 font-bold underline">
-                                <Link href="/login">Sign In</Link>
+                                <Link href="/register">Sign Up</Link>
                         </span>
                 </p>
             </div>
