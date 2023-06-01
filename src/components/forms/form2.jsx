@@ -50,9 +50,9 @@ const Form2 = () => {
       }
     };
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="w-1/3 bg-orange-200 p-6 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-6 text-orange-800">Form 2</h2>
+      <div className="flex justify-center items-center h-screen p-8">
+        <form className="md:w-1/3 bg-orange-200 p-6 rounded-md shadow mx-auto my-0">
+          <h2 className="text-center text-2xl font-bold mb-6 text-orange-800">Create post</h2>
         <div className="space-y-4">
           <div>
             <label className="block">

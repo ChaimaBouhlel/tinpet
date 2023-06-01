@@ -40,8 +40,8 @@ const Form1 = () => {
 
         // Pass the animalId as a query parameter when navigating to Form2
         router.push({
-          pathname: '/formPage3',
-          query: { animalId , userId}
+          pathname: '/createPost',
+          query: { animalId }
         });
       } else {
         throw new Error('Failed to submit the form');
@@ -50,77 +50,99 @@ const Form1 = () => {
       console.log(error);
     }
   };
-
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="w-1/3 bg-orange-200 p-6 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-6 text-orange-800">Form 1</h2>
-        <div className="space-y-4">
-          <div>
-            <label className="block">
-              <span className="text-orange-800 font-bold">Name:</span>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label className="block">
-              <span className="text-orange-800 font-bold">Race:</span>
-              <input
-                type="text"
-                name="race"
-                value={formData.race}
-                onChange={handleChange}
-                className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label className="block">
-              <span className="text-orange-800 font-bold">Description:</span>
-              <input
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label className="block">
-              <span className="text-orange-800 font-bold">Type:</span>
-              <input
-                type="text"
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label className="block">
-              <span className="text-orange-800 font-bold">Age:</span>
-              <input
-                type="number"
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-                className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
-                required
-              />
-            </label>
-          </div>
+ 
+    return (
+        <div className="flex justify-center items-center h-screen p-8">
+          <form className="md:w-1/3 bg-orange-200 p-6 rounded-md shadow mx-auto my-0">
+            <h2 className="text-2xl font-bold mb-6 text-orange-800">Enter animal information</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block">
+                  <span className="text-orange-800 font-bold">Name:</span>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block">
+                  <span className="text-orange-800 font-bold">Race:</span>
+                  <input
+                    type="text"
+                    name="race"
+                    value={formData.race}
+                    onChange={handleChange}
+                    className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block">
+                  <span className="text-orange-800 font-bold">Photo:</span>
+                  <input
+                    type="text"
+                    name="photo"
+                    value={formData.photo}
+                    onChange={handleChange}
+                    className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block">
+                  <span className="text-orange-800 font-bold">Description:</span>
+                  <input
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block">
+                  <span className="text-orange-800 font-bold">Type:</span>
+                  <input
+                    type="text"
+                    name="type"
+                    value={formData.type}
+                    onChange={handleChange}
+                    className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block">
+                  <span className="text-orange-800 font-bold">Age:</span>
+                  <input
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    className="form-input mt-1 w-full border border-orange-400 rounded-md text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="bg-orange-700 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded mt-6"
+              onClick={handleSubmit}
+            >
+              Next
+            </button>
+          </form>
         </div>
         <button
           type="submit"
