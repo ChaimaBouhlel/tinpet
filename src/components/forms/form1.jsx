@@ -1,19 +1,18 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 const Form1 = () => {
-  
-
   const [formData, setFormData] = useState({
     name: '',
     race: '',
-    photo: '',
     description: '',
     type: '',
     age: ''
   });
+  
 
   const router = useRouter();
+  const { userId } = router.query; // Get the userId from the query parameters
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,8 +37,7 @@ const Form1 = () => {
       if (response.ok) {
         const data = await response.json();
         const animalId = data.id;
-        console.log(data)
-  
+
         // Pass the animalId as a query parameter when navigating to Form2
         router.push({
           pathname: '/createPost',
@@ -146,7 +144,16 @@ const Form1 = () => {
             </button>
           </form>
         </div>
-      );
-    };
+        <button
+          type="submit"
+          className="bg-orange-700 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded mt-6"
+          onClick={handleSubmit}
+        >
+          Next
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Form1;

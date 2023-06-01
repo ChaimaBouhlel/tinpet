@@ -12,7 +12,10 @@ const Form2 = () => {
   
     const router = useRouter();
     const { animalId } = router.query;
+    const { userId } = router.query;
     console.log(animalId);
+    console.log(userId);
+
      // Get the animalId from the query
   
     const handleChange = (e) => {
@@ -32,12 +35,13 @@ const Form2 = () => {
           body: JSON.stringify({
             ...formData,
             animalId: animalId ,// Include the animalId from the context in the request body
-            publisherId: 2 // Include the static userId value
+            publisherId: userId // Include the static userId value
           })
         });
   
         if (response.ok) {
-          router.push('/success'); // Navigate to success page if the request was successful
+          console.log('annonce added success');
+           // Navigate to success page if the request was successful
         } else {
           throw new Error('Failed to submit the form');
         }
