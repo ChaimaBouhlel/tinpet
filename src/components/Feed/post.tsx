@@ -1,79 +1,33 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { Heart } from "react-feather";
-import Link from "next/link";
+import React, { useState } from 'react';
+import { FaHeart } from 'react-icons/fa';
 
-const Post = () => {
+const Post = ({animal}) => {
   const [isLiked, setIsLiked] = useState(false);
-
+  const { name, age, sexe, photo, description, type, state } = animal;
   const handleLike = () => {
     setIsLiked(!isLiked);
   };
 
+  const postStyle = "max-w-xs my-4 rounded overflow-hidden shadow-lg";
+  const imageStyle = "w-full";
+  const contentStyle = "px-4 py-2";
+  const titleStyle = "font-bold text-xl mb-2";
+  const actionsStyle = "flex items-center justify-between mt-2";
+  const actionsStyleButton = "flex items-center justify-center mt-2";
+  const likeButtonStyle = isLiked ? "text-red-500" : "text-gray-500";
+  const adoptMeButtonStyle = "bg-orange-200 hover:bg-orange-300 text-white font-bold py-2 px-4 rounded";
+
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "1em",
-        marginBottom: "1.5em",
-        marginLeft: "1.5em",
-        flexDirection: "column",
-      }}
-    >
-      <Link href="/pets/1">
-        <div
-          style={{
-            height: "17.5em",
-            overflow: "hidden",
-            borderRadius: "5px",
-          }}
-        >
-          <Image
-            style={{
-              objectFit: "cover",
-              width: "100%",
-              height: "100%",
-            }}
-            src="/pussy.jpg"
-            alt="test"
-            width={500}
-            height={200}
-          />
+    <div className={postStyle}>
+      <img className={imageStyle} src={photo} alt={name} />
+      <div className={contentStyle}>
+        <div className={actionsStyle}>
+
+            <div className={titleStyle}>{name}</div>
+          <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
         </div>
-      </Link>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <h2 style={{ margin: 0, marginRight: "10px" }}>Minouch</h2>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "row",
-            marginTop: 0,
-          }}
-        >
-          <button
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-            }}
-            onClick={handleLike}
-          >
-            {isLiked ? (
-              <AiFillHeart size={32} style={{ marginRight: "5px" }} />
-            ) : (
-              <AiOutlineHeart size={32} style={{ marginRight: "5px" }} />
-            )}
-          </button>
+        <div className={actionsStyleButton}>
+               <button className={adoptMeButtonStyle}>Details</button>
         </div>
       </div>
     </div>
@@ -81,3 +35,4 @@ const Post = () => {
 };
 
 export default Post;
+
