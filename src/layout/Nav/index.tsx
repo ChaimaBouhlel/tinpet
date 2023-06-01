@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {Menu} from "react-feather";
+import {LogOut, Menu, User} from "react-feather";
 import {useState} from "react";
 import {useRecoilState, useRecoilValue, useResetRecoilState} from "recoil";
 import authenticatedUser from "@/atoms/authenticatedUser";
@@ -14,8 +14,8 @@ const MENU_LIST = [
 
 const Navbar = () => {
     const [smallMenuOpen, setSmallMenuOpen] = useState(false)
-    const authUser=useRecoilValue(authenticatedUser)
-    const resetauthUser=useResetRecoilState(authenticatedUser)
+    const authUser = useRecoilValue(authenticatedUser)
+    const resetauthUser = useResetRecoilState(authenticatedUser)
     const [authState, setAuthState] = useRecoilState(authentication)
     return (
         <>
@@ -35,30 +35,43 @@ const Navbar = () => {
                     <Menu size={24} color="#92400e"/>
                 </div>
                 {
-                    !authState?
+                    !authState ?
                         <div className="hidden sm:block">
                             <Link href="register" className="mr-8 font-bold">Sign up</Link>
                             <Link href="login" className="font-bold">Login</Link>
                         </div>
                         :
-                        <div className="hidden sm:block">
-                            <Link href="login" className="font-bold" onClick={() => {
-                                setAuthState(false)
-                                resetauthUser()
-                            }}>Logout</Link>
+                        <div className="flex flex-row">
+                            <div className="hidden sm:block">
+                                <Link href="/profile" className="flex flex-row mr-8">
+                                    <User color="#92400e"/>
+                                    <span>{authUser.firstname}</span>
+                                </Link>
+                            </div>
+                            <div className="hidden sm:block">
+                                <Link href="login" className="flex flex-row" onClick={() => {
+                                    setAuthState(false)
+                                    resetauthUser()
+                                }}>
+                                    <LogOut color="#92400e"/>
+                                    <span>Logout</span>
+                                </Link>
+                            </div>
                         </div>
+
                 }
             </div>
             {
-                smallMenuOpen?
-                    <div className="flex fixed w-screen flex-col grow items-center sm:hidden bg-amber-50 text-amber-800 gap-8">
+                smallMenuOpen ?
+                    <div
+                        className="flex fixed w-screen flex-col grow items-center sm:hidden bg-amber-50 text-amber-800 gap-8">
                         {MENU_LIST.map((menu, idx) => (
                             <Link href={menu.href} key={idx} onClick={() => {
                                 setSmallMenuOpen(!smallMenuOpen)
                             }}> {menu.text}</Link>
                         ))}
                         {
-                            ! authState ?
+                            !authState ?
                                 <div className="pb-4">
                                     <Link href="register" className="font-bold" onClick={() => {
                                         setSmallMenuOpen(!smallMenuOpen)
@@ -68,12 +81,18 @@ const Navbar = () => {
                                     }}>Login</Link>
                                 </div>
                                 :
-                                <div  className="pb-4">
-                                    <Link href="login" className="font-bold" onClick={() => {
+                                <div className="pb-4">
+                                    <Link href="/profile" className="flex flex-row mb-8">
+                                        <User color="#92400e"/>
+                                        <span>{authUser.firstname}</span>
+                                    </Link>
+                                    <Link href="login" className="flex flex-row" onClick={() => {
                                         setSmallMenuOpen(!smallMenuOpen)
                                         setAuthState(false)
                                         resetauthUser()
-                                    }}>Log out</Link>
+                                    }}> <LogOut color="#92400e"/>
+                                        <span>Logout</span>
+                                    </Link>
                                 </div>
                         }
                     </div>
