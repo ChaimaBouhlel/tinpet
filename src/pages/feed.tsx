@@ -1,4 +1,3 @@
-
 import {NextPageWithLayout} from "@/types/global";
 import {ReactElement} from "react";
 import Layout from "@/layout";
