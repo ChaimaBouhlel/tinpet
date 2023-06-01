@@ -9,6 +9,7 @@ const Feed: NextPageWithLayout<{}> = () => {
   return (
     <>
       <div style={{ display: "flex" }}>
+      <h1>Helloooo </h1>
         <Post />
         <Post />
       </div>
