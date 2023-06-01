@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 const Form2 = () => {
   const router = useRouter();
   const [file, setFile] = useState(null);
+  const { userId } = router.query; // Get the userId from the query parameters
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,10 +18,7 @@ const Form2 = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const animalId = router.query.animalId;
-      const userId = router.query.userId;
-
-      const response = await fetch(`http://localhost:3000/animal/${animalId}/uploadImage`, {
+      const response = await fetch(`http://localhost:3000/user/${userId}/profile-photo`, {
         method: 'POST',
         body: formData
       });
@@ -29,9 +27,9 @@ const Form2 = () => {
         console.log('Image uploaded successfully');
         // Handle success or navigate to the next page
         router.push({
-            pathname: '/formPage2',
-            query: { animalId ,userId}
-          });
+          pathname: '/userProfile',
+          query: { userId }
+        });
       } else {
         throw new Error('Failed to upload image');
       }
@@ -48,7 +46,7 @@ const Form2 = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <form className="w-1/3 bg-orange-200 p-6 rounded-md shadow">
-        <h2 className="text-2xl font-bold mb-6 text-orange-800">Form 2</h2>
+        <h2 className="text-2xl font-bold mb-6 text-orange-800">Update Profile Picture</h2>
         <div className="space-y-4">
           <div>
             <label className="block">

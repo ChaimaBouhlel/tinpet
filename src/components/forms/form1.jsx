@@ -9,8 +9,10 @@ const Form1 = () => {
     type: '',
     age: ''
   });
+  
 
   const router = useRouter();
+  const { userId } = router.query; // Get the userId from the query parameters
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +41,7 @@ const Form1 = () => {
         // Pass the animalId as a query parameter when navigating to Form2
         router.push({
           pathname: '/formPage3',
-          query: { animalId }
+          query: { animalId , userId}
         });
       } else {
         throw new Error('Failed to submit the form');
