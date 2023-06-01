@@ -37,7 +37,8 @@ const Form2 = () => {
         });
   
         if (response.ok) {
-          router.push('/success'); // Navigate to success page if the request was successful
+          console.log('annonce added success');
+           // Navigate to success page if the request was successful
         } else {
           throw new Error('Failed to submit the form');
         }
