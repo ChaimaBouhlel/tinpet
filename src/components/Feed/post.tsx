@@ -68,14 +68,14 @@ const Post = ({ animal }) => {
 
   return (
     <div className={postStyle}>
-      <img className={imageStyle} src={`http://localhost:3000/animal/animal-image/${animal.photo}`} alt={name} />
+      <img className={imageStyle} src={animal.photo ?`http://localhost:3000/animal/animal-image/${animal.photo}` :"/pet_replace.jpg"} alt={name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
           <div className={titleStyle}>{name}</div>
           <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
         </div>
         <Link href={`/pets/${id}`} className={actionsStyleButton}>
-          <button className={adoptMeButtonStyle}>Details</button>
+          <button className={adoptMeButtonStyle}>{"Details"}</button>
         </Link>
       </div>
     </div>

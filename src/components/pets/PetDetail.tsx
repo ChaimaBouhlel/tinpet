@@ -13,7 +13,7 @@ const PetDetail = ({animal}) => {
     return (
         <div className={containerStyle}>
             <div className={imageContainerStyle}>
-                <img className={imageStyle} src="/pussy.jpg" alt="test" />
+                <img className={imageStyle} src="/pet_replace.jpg" alt="test" />
             </div>
 
             <section className={sectionStyle}>
