@@ -9,7 +9,7 @@ const MENU_LIST = [
     {text: "Home", href: "/"},
     {text: "About Us", href: "/about"},
     {text: "Contact", href: "/contact"},
-    {text: "Adopt Pets", href: "/adopt"},
+    {text: "Adopt Pets", href: "/feed"},
 ];
 
 const Navbar = () => {

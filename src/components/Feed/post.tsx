@@ -1,12 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaHeart } from 'react-icons/fa';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
 
-const Post = ({animal}) => {
+const Post = ({ animal }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const {id, name, age, sexe, photo, description, type, state } = animal;
-  const handleLike = () => {
-    setIsLiked(!isLiked);
+  const { id, name, age, sexe, photo, description, type, state } = animal;
+  const router = useRouter();
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      try {
+        const decodedToken = jwt.decode(token);
+        const userEmail = decodedToken.email;
+        fetch(`http://localhost:3000/user/email/${userEmail}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setUserId(data.userId);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
+  const handleLike = async (event) => {
+    event.preventDefault(); // Prevent default behavior
+
+    try {
+      if (!userId) {
+        router.push('/login');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:3000/annonce/fav/${userId}/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setIsLiked(!isLiked);
+      } else {
+        throw new Error('Failed to like the post');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const postStyle = "max-w-xs my-4 rounded overflow-hidden shadow-lg";
@@ -20,14 +68,14 @@ const Post = ({animal}) => {
 
   return (
     <div className={postStyle}>
-      <img className={imageStyle} src="/pussy.jpg" alt={name} />
+      <img className={imageStyle} src={`http://localhost:3000/animal/animal-image/${animal.photo}`} alt={name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
-            <div className={titleStyle}>{name}</div>
+          <div className={titleStyle}>{name}</div>
           <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
         </div>
         <Link href={`/pets/${id}`} className={actionsStyleButton}>
-               <button className={adoptMeButtonStyle}>Details</button>
+          <button className={adoptMeButtonStyle}>Details</button>
         </Link>
       </div>
     </div>
