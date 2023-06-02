@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
+import Link from 'next/link';
 
 const Post = ({animal}) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { name, age, sexe, photo, description, type, state } = animal;
+  const {id, name, age, sexe, photo, description, type, state } = animal;
   const handleLike = () => {
     setIsLiked(!isLiked);
   };
@@ -22,13 +23,12 @@ const Post = ({animal}) => {
       <img className={imageStyle} src="/pussy.jpg" alt={name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
-
             <div className={titleStyle}>{name}</div>
           <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
         </div>
-        <div className={actionsStyleButton}>
+        <Link href={`/pets/${id}`} className={actionsStyleButton}>
                <button className={adoptMeButtonStyle}>Details</button>
-        </div>
+        </Link>
       </div>
     </div>
   );
