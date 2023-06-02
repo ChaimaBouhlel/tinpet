@@ -52,6 +52,8 @@ const Navbar = () => {
                                 <Link href="login" className="flex flex-row" onClick={() => {
                                     setAuthState(false)
                                     resetauthUser()
+                                    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
                                 }}>
                                     <LogOut color="#92400e"/>
                                     <span>Logout</span>
