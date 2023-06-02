@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
-    <footer className="bg-amber-50 py-8">
+    <footer className="bg-amber-50 py-8 pl-32 pr-16 text-amber-800">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center md:flex-row md:justify-between">
           <h1 className="text-4xl font-bold text-brown mb-4 md:mb-0">TINPET</h1>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-            <div className="col-span-1 bg-amber-50 rounded-lg border-black border-2 p-4">
+            <div className="col-span-1 bg-amber-50 rounded-lg border-amber-800 border-2 p-4">
               <h4 className="text-lg font-bold mb-4">RESOURCES</h4>
               <ul className="list-disc pl-4">
                 <li><a href="#">FAQs</a></li>
@@ -17,7 +17,7 @@ const Footer = () => {
                 <li><a href="#">Contact Us</a></li>
               </ul>
             </div>
-            <div className="col-span-1 bg-amber-50 rounded-lg border-black border-2 p-4">
+            <div className="col-span-1 bg-amber-50 rounded-lg border-amber-800 border-2 p-4">
               <h4 className="text-lg font-bold mb-4">ADOPT OR GET INVOLVED</h4>
               <ul className="list-disc pl-4">
                 <li><a href="#">Adopting Pets</a></li>
@@ -25,7 +25,7 @@ const Footer = () => {
                 <li><a href="#">Other Types of Pets</a></li>
               </ul>
             </div>
-            <div className="col-span-1 bg-amber-50 rounded-lg border-black border-2 p-4">
+            <div className="col-span-1 bg-amber-50 rounded-lg border-amber-800 border-2 p-4">
               <h4 className="text-lg font-bold mb-4">ABOUT DOGS & PUPPIES</h4>
               <ul className="list-disc pl-4">
                 <li><a href="#">Dog Adoption</a></li>
@@ -37,7 +37,7 @@ const Footer = () => {
                 <li><a href="#">Other Dog Information</a></li>
               </ul>
             </div>
-            <div className="col-span-1 bg-amber-50 rounded-lg border-black border-2 p-4">
+            <div className="col-span-1 bg-amber-50 rounded-lg border-amber-800 border-2 p-4">
               <h4 className="text-lg font-bold mb-4">ABOUT CATS & KITTENS</h4>
               <ul className="list-disc pl-4">
                 <li><a href="#">Cat Adoption</a></li>
