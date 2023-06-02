@@ -15,4 +15,7 @@ export default function Banner() {
         </div>
     )
 }
+//lahdha enti chnoia badalt fel userprofile  chay , talkani zedt espace or sth ahahahaha
+//W lindex l index li kaadin nektbou fih taw
+//ey fhemtek sayeb el pc
 

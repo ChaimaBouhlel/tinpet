@@ -11,14 +11,14 @@ const PetDetail = ({ animal }) => {
   const detailsListStyle = "text-xl leading-relaxed space-y-1"; // Removed the marginBottom class
   const stateStyle = "text-lg mb-4";
   const adoptButtonStyle = "bg-orange-200 hover:bg-orange-300 text-white font-bold py-4 px-6 rounded";
-
+//finou el back ??
   const { name, age, sexe, photo, description, type, state } = animal;
 
   return (
     <div className={containerStyle}>
       <div className={flexContainerStyle}>
         <div className={imageSectionStyle}>
-          <img className={imageStyle} src={`/${photo}`} alt={name} />
+          <img className={imageStyle} src={`http://localhost:3000/animal/animal-image/${animal.photo}`} alt={name} />
         </div>
 
         <div className={detailsSectionStyle}>
@@ -40,7 +40,6 @@ const PetDetail = ({ animal }) => {
                 <strong>Type:</strong> {type}
               </div>
             </div>
-
             <div>
               <div className={stateStyle}>
                 <strong>State:</strong> {state}
