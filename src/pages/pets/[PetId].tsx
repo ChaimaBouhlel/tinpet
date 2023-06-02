@@ -20,32 +20,28 @@ Detail.getLayout = function getLayout(page: ReactElement) {
         </Layout>
     );
 };
-export async function getStaticPaths () {
- const response=await fetch(`http://localhost:3000/animal`)
-    const data=await response.json();
-    console.log("data:" + data)
-    const paths = data.map((pet) => {
-    return {
-        params:{
-            petId:`${pet.id}`
-        }
-    }
-  })
-return {
+export async function getStaticPaths() {
+  const response = await fetch(`http://localhost:3000/animal`);
+  const data = await response.json();
+  const paths = data.map((animal) => (
+  {
+    params: { PetId: JSON.stringify(animal.id) },
+  }));
+  return {
     paths,
-    fallback:false,
+    fallback: false,
+  };
 }
-}
-export async function getStaticProps (context) {
-    const {params}=context;
-    const response=await fetch(`http://localhost:3000/animal/${params.id}`)
-    const data=await response.json();
-    console.log(data)
-    return  {
+
+export async function getStaticProps(context) {
+  const { params } = context;
+  const response = await fetch(`http://localhost:3000/animal/${params.PetId}`);
+  const data = await response.json();
+  return {
     props: {
-        animal:data
-    }
-    }
-};
+      animal: data,
+    },
+  };
+}
 
 export default Detail;

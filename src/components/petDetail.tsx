@@ -14,23 +14,23 @@ const PetDetail = ({animal}) => {
   return (
     <div className={containerStyle}>
       <div className={imageContainerStyle}>
-        <img className={imageStyle} src="/pussy.jpg" alt="test" />
+        <img className={imageStyle} src={`/${photo}`} alt="test" />
       </div>
 
       <section className={sectionStyle}>
         <div className={detailsStyle}>
           <div className={labelStyle}>Name:</div>
-          <div>name</div>
+          <div>{name}</div>
           <div className={labelStyle}>Age:</div>
-          <div>age</div>
+          <div>{age}</div>
           <div className={labelStyle}>Sexe:</div>
-          <div>sexe</div>
+          <div>{sexe}</div>
           <div className={labelStyle}>Description:</div>
-          <div>description</div>
+          <div>{description}</div>
           <div className={labelStyle}>Type:</div>
-          <div>type</div>
+          <div>{type}</div>
           <div className={labelStyle}>State:</div>
-          <div>state</div>
+          <div>{state}</div>
         </div>
 
         <div className="flex flex-col items-center justify-center"> {/* Updated style for the "Adopt me" section */}
