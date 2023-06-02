@@ -21,21 +21,15 @@ Detail.getLayout = function getLayout(page: ReactElement) {
     );
 };
 export async function getStaticPaths () {
-    const response=await fetch(`http://localhost:3000/animal`)
-    const data=await response.json();
-    console.log("data:" + data)
-    const paths = data.map((pet) => {
-        return {
-            params:{
-                petId:`${pet.id}`
-            }
-        }
-    })
     return {
-        paths,
+        paths:[
+        {
+            params :{PetId :'3' }
+        }
+        ],
         fallback:false,
     }
-}
+    }
 export async function getStaticProps (context) {
     const {params}=context;
     const response=await fetch(`http://localhost:3000/animal/${params.id}`)

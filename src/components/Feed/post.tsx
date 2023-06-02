@@ -19,7 +19,7 @@ const Post = ({animal}) => {
 
   return (
     <div className={postStyle}>
-      <img className={imageStyle} src={photo} alt={name} />
+      <img className={imageStyle} src="/pussy.jpg" alt={name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
 
@@ -35,4 +35,3 @@ const Post = ({animal}) => {
 };
 
 export default Post;
-

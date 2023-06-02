@@ -32,14 +32,18 @@ const Form2 = () => {
       try {
         const response = await fetch('http://localhost:3000/annonce', {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
             ...formData,
-            animalId: animalId ,// Include the animalId from the context in the request body
-            publisherId: userId // Include the static userId value
+            animalId: animalId ,
+            publisherId: userId 
           })
         });
   
-        if (response.ok) {
+        if (response) {
+          console.log(response);
           console.log('annonce added success');
            // Navigate to success page if the request was successful
         } else {

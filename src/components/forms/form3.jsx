@@ -29,8 +29,8 @@ const Form2 = () => {
         console.log('Image uploaded successfully');
         // Handle success or navigate to the next page
         router.push({
-            pathname: '/formPage2',
-            query: { animalId ,userId}
+            pathname: '/createPost',
+            query: { animalId,userId }
           });
       } else {
         throw new Error('Failed to upload image');

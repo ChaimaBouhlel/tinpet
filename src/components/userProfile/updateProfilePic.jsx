@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const Form2 = () => {
   const router = useRouter();
@@ -15,11 +16,18 @@ const Form2 = () => {
     }
 
     try {
+      const token = Cookies.get('token'); // Get the access token from the cookie
+        if (!token) {
+          throw new Error('No access token found');
+        }
       const formData = new FormData();
       formData.append('file', file);
 
       const response = await fetch(`http://localhost:3000/user/${userId}/profile-photo`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Include the verification token in the Authorization header
+        },
         body: formData
       });
 

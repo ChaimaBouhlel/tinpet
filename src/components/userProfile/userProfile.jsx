@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -10,8 +11,17 @@ const UserProfile = () => {
     // Fetch user data from the backend based on the id
     const fetchUserData = async () => {
       try {
+        const token = Cookies.get('token'); // Get the access token from the cookie
+        if (!token) {
+          throw new Error('No access token found');
+        }
+
         const response = await fetch(`http://localhost:3000/user/${userId}`, {
           method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}` // Include the access token in the Authorization header
+          }
         });
 
         if (response.ok) {
@@ -41,16 +51,20 @@ const UserProfile = () => {
     router.push(`/updateProfilePicture?userId=${userId}`);
   };
 
-  const handleViewCreatedPosts = () => {
+  const handleCreatePosts = () => {
     // Navigate to the page where user can see their created posts
-    router.push(`/formPage1?userId=${userId}`);
+    router.push(`/createAnimal?userId=${userId}`);
   };
 
   const handleViewLikedPosts = () => {
     // Navigate to the page where user can see their liked posts
     router.push('/likedPosts');
   };
-
+  
+  const handleViewCreatedPosts = () => {
+    // Navigate to the page where user can see their created posts
+    router.push(`/viewCreatedPosts?userId=${userId}`);
+  };
   return (
     <div className="bg-orange-200 min-h-screen flex items-center justify-center">
       {user && (
@@ -82,7 +96,7 @@ const UserProfile = () => {
           </div>
           <div className="mt-4">
             <button
-              onClick={handleViewCreatedPosts}
+              onClick={handleCreatePosts}
               className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full"
             >
               Create New Annonce
@@ -94,6 +108,14 @@ const UserProfile = () => {
               className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full"
             >
               View Liked Posts
+            </button>
+          </div>
+          <div className="mt-4">
+            <button
+              onClick={handleViewCreatedPosts}
+              className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full"
+            >
+              View Created Posts
             </button>
           </div>
         </div>

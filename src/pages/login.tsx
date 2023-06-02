@@ -7,6 +7,7 @@ import {useRecoilState, useRecoilValue} from "recoil";
 import authenticatedUser from "@/atoms/authenticatedUser";
 import authentication from "@/atoms/authentication";
 import jwtDecode from "jwt-decode"
+import Cookies from 'js-cookie';
 
 
 const Login = () => {
@@ -29,6 +30,9 @@ const Login = () => {
             );
         },
         onSuccess: ({data}) => {
+            
+            const token = data.access_token;
+            Cookies.set('token', token); 
             console.log(data.access_token)
             const payload = jwtDecode(data.access_token)
             console.log(payload)
@@ -43,7 +47,7 @@ const Login = () => {
         }
     })
 
-    if (authState) {
+    if (authState ) {
         router.push("/")
     }
     const divStyle = {

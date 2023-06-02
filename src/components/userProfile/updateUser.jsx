@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const UpdateProfileForm = () => {
   const router = useRouter();
@@ -12,8 +13,16 @@ const UpdateProfileForm = () => {
     // Fetch user data from the backend based on the user ID
     const fetchUserData = async () => {
       try {
+        const token = Cookies.get('token'); // Get the access token from the cookie
+        if (!token) {
+          throw new Error('No access token found');
+        }
         const response = await fetch(`http://localhost:3000/user/${router.query.userId}`, {
           method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}` // Include the access token in the Authorization header
+          }
         });
 
         if (response.ok) {
@@ -45,6 +54,10 @@ const UpdateProfileForm = () => {
         lastname,
         password,
       };
+      const token = Cookies.get('token'); // Get the access token from the cookie
+        if (!token) {
+          throw new Error('No access token found');
+        }
 
       const userId = router.query.userId;
 
@@ -52,6 +65,7 @@ const UpdateProfileForm = () => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}` // Include the access token in the Authorization header
         },
         body: JSON.stringify(formData),
       });
