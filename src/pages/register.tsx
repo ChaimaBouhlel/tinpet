@@ -60,7 +60,7 @@ const Register = () => {
 
     const mutation = useMutation({
         mutationFn: async (data) => {
-            return await axios.post("http://localhost:3001/user",
+            return await axios.post(process.env.NEXT_PUBLIC_REGISTER_URL,
                 {firstname: firstName, lastname: lastName, email, password: pwd},
                 {
                     headers: {'Content-Type': 'application/json'},

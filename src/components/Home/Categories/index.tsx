@@ -16,7 +16,7 @@ const categories = [
 ]
 const Categories = () => {
     return (
-        <div className="px-20 py-12 bg-orange-200 flex flex-col md:flex-row md:py-32">
+        <div className="px-20 py-12 bg-orange-200 flex flex-col md:flex-row md:py-16">
             {
                 categories.map((category, index) => {
                     return (<Category {...category} key={index}/>)
