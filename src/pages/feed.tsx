@@ -40,7 +40,6 @@ export async function getStaticProps() {
   try {
     const response = await axios.get('http://localhost:3000/annonce');
     const posts = response.data;
-    console.log(posts)
     return {
       props: {
         posts,
@@ -48,7 +47,6 @@ export async function getStaticProps() {
     };
   } catch (error) {
     console.error('Error fetching posts:', error);
-
     return {
       props: {
         posts: [],

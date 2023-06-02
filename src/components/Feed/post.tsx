@@ -23,7 +23,6 @@ const Post = ({animal}) => {
       <img className={imageStyle} src={photo} alt={name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
-
             <div className={titleStyle}>{name}</div>
           <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
         </div>
