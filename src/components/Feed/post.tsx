@@ -79,7 +79,7 @@ const Post = ({ post }) => {
 
   return (
     <div className={postStyle}>
-      <img className={imageStyle} src={`http://localhost:3000/animal/animal-image/${animalData.photo}`} alt={animalData.name} />
+      <img className={imageStyle} src={` http://localhost:3000/animal/animal-image/${animalData.photo}`} alt={animalData.name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
           <div className={titleStyle}>{animalData.name}</div>

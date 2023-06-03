@@ -58,7 +58,7 @@ const UserProfile = () => {
 
   const handleViewLikedPosts = () => {
     // Navigate to the page where user can see their liked posts
-    router.push('/likedPosts');
+    router.push(`/likedPosts?userId=${userId}`);
   };
   
   const handleViewCreatedPosts = () => {
