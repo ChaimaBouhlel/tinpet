@@ -15,7 +15,6 @@ const Feed = ({ posts }) => {
   const [results, setResults] = useState(posts);
   const [sexe, setSexe] = useState('');
 
-
   const handleSearch = async () => {
     console.log(minAge, maxAge, categorie)
     const constraintsCat = categorie ? `&category=${categorie}` : ""
@@ -23,7 +22,7 @@ const Feed = ({ posts }) => {
     console.log(sexe)
     console.log(constraintsSexe)
     console.log(constraintsCat)
-    const SEARCH_URL = `http://localhost:3000/annonce/search?minAge=${minAge}&maxAge=${maxAge}${constraintsCat}${constraintsSexe}`
+    const SEARCH_URL = `http://localhost:3000/annonce/search?minAge=${minAge||0}&maxAge=${maxAge||100}${constraintsCat}${constraintsSexe}`
     console.log(SEARCH_URL)
     try {
       const response = await axios.get(
@@ -59,7 +58,7 @@ const Feed = ({ posts }) => {
           <option value="">Min Age</option>
           <option value="0">0</option>
           <option value="1">1</option>
-          <option value="3">3</option>
+          <option value="2">2</option>
         </select>
         <select
             className="border border-gray-300 rounded p-2 mb-4"

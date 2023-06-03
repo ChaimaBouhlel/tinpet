@@ -4,12 +4,24 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
+import axios from "axios";
 
 const Post = ({ animal }) => {
   const [isLiked, setIsLiked] = useState(false);
   const { id, name, age, sexe, photo, description, type, state } = animal;
+  const [animalData, setAnimalData] = useState(animal)
   const router = useRouter();
   const [userId, setUserId] = useState(null);
+  if (!name) {
+    axios.get(`http://localhost:3000/annonce/${id}`)
+        .then(response => {
+          const animalee = response.data.animal;
+          setAnimalData(animalee);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  }
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -68,13 +80,13 @@ const Post = ({ animal }) => {
 
   return (
     <div className={postStyle}>
-      <img className={imageStyle} src={animal.photo ?`http://localhost:3000/animal/animal-image/${animal.photo}` :"/pet_replace.jpg"} alt={name} />
+      <img className={imageStyle} src={`http://localhost:3000/animal/animal-image/${animalData.photo}`} alt={animalData.name} />
       <div className={contentStyle}>
         <div className={actionsStyle}>
-          <div className={titleStyle}>{name}</div>
+          <div className={titleStyle}>{animalData.name}</div>
           <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
         </div>
-        <Link href={`/pets/${id}`} className={actionsStyleButton}>
+        <Link href={`/pets/${animalData.id}`} className={actionsStyleButton}>
           <button className={adoptMeButtonStyle}>{"Details"}</button>
         </Link>
       </div>
