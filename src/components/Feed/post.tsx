@@ -6,13 +6,14 @@ import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import axios from "axios";
 
-const Post = ({ animal }) => {
+const Post = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { id, name, age, sexe, photo, description, type, state } = animal;
+  const { id, animal} = post;
   const [animalData, setAnimalData] = useState(animal)
   const router = useRouter();
   const [userId, setUserId] = useState(null);
-  if (!name) {
+
+  if (!animal) {
     axios.get(`http://localhost:3000/annonce/${id}`)
         .then(response => {
           const animalee = response.data.animal;
@@ -32,7 +33,7 @@ const Post = ({ animal }) => {
         fetch(`http://localhost:3000/user/email/${userEmail}`)
           .then((response) => response.json())
           .then((data) => {
-            setUserId(data.userId);
+            setUserId(data.id);
           })
           .catch((error) => {
             console.log(error);
@@ -45,7 +46,6 @@ const Post = ({ animal }) => {
 
   const handleLike = async (event) => {
     event.preventDefault(); // Prevent default behavior
-
     try {
       if (!userId) {
         router.push('/login');
@@ -58,7 +58,7 @@ const Post = ({ animal }) => {
           'Content-Type': 'application/json',
         },
       });
-
+      console.log(response)
       if (response.ok) {
         setIsLiked(!isLiked);
       } else {
@@ -66,8 +66,7 @@ const Post = ({ animal }) => {
       }
     } catch (error) {
       console.log(error);
-    }
-  };
+    }  };
 
   const postStyle = "max-w-xs my-4 rounded overflow-hidden shadow-lg";
   const imageStyle = "w-full";

@@ -93,8 +93,8 @@ const Feed = ({ posts }) => {
           {results
             .slice(rowIndex * postsPerRow, (rowIndex + 1) * postsPerRow)
             .map((post) => (
-              <div key={post.animal?.id || post.id } className={postStyle}>
-                <Post animal={post.animal || post} />
+              <div key={post.id} className={postStyle}>
+                <Post post={post} />
               </div>
             ))}
         </div>
