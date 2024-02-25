@@ -23,7 +23,7 @@ const Form2 = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch(`http://localhost:3000/user/${userId}/profile-photo`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}/profile-photo`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`, // Include the verification token in the Authorization header

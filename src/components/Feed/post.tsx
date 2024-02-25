@@ -5,16 +5,21 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import axios from "axios";
+import {AnimalType, PostType} from "@/types/global";
 
-const Post = ({ post }) => {
+interface PostProps {
+  post: PostType
+}
+
+const Post = ({ post }: PostProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const { id, animal} = post;
-  const [animalData, setAnimalData] = useState(animal)
+  const [animalData, setAnimalData] = useState<AnimalType>(animal)
   const router = useRouter();
   const [userId, setUserId] = useState(null);
 
   if (!animal) {
-    axios.get(`http://localhost:3000/annonce/${id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/annonce/${id}`)
         .then(response => {
           const animalee = response.data.animal;
           setAnimalData(animalee);
@@ -28,23 +33,23 @@ const Post = ({ post }) => {
     const token = Cookies.get('token');
     if (token) {
       try {
-        const decodedToken = jwt.decode(token);
+        const decodedToken = jwt.decode(token) as jwt.JwtPayload;
         const userEmail = decodedToken.email;
-        fetch(`http://localhost:3000/user/email/${userEmail}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setUserId(data.id);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/email/${userEmail}`)
+            .then((response) => response.json())
+            .then((data) => {
+              setUserId(data.id);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
       } catch (error) {
         console.log(error);
       }
     }
   }, []);
 
-  const handleLike = async (event) => {
+  const handleLike = async (event: React.MouseEvent) => {
     event.preventDefault(); // Prevent default behavior
     try {
       if (!userId) {
@@ -52,7 +57,7 @@ const Post = ({ post }) => {
         return;
       }
 
-      const response = await fetch(`http://localhost:3000/annonce/fav/${userId}/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/annonce/fav/${userId}/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,18 +83,18 @@ const Post = ({ post }) => {
   const adoptMeButtonStyle = "bg-orange-200 hover:bg-orange-300 text-white font-bold py-2 px-4 rounded";
 
   return (
-    <div className={postStyle}>
-      <img className={imageStyle} src={` http://localhost:3000/animal/animal-image/${animalData.photo}`} alt={animalData.name} />
-      <div className={contentStyle}>
-        <div className={actionsStyle}>
-          <div className={titleStyle}>{animalData.name}</div>
-          <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
+      <div className={postStyle}>
+        <img className={imageStyle} src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal/animal-image/${animalData.photo}`} alt={animalData.name} />
+        <div className={contentStyle}>
+          <div className={actionsStyle}>
+            <div className={titleStyle}>{animalData.name}</div>
+            <FaHeart className={likeButtonStyle} size={18} onClick={handleLike} />
+          </div>
+          <Link href={`/pets/${animalData.id}`} className={actionsStyleButton}>
+            <button className={adoptMeButtonStyle}>{"Details"}</button>
+          </Link>
         </div>
-        <Link href={`/pets/${animalData.id}`} className={actionsStyleButton}>
-          <button className={adoptMeButtonStyle}>{"Details"}</button>
-        </Link>
       </div>
-    </div>
   );
 };
 

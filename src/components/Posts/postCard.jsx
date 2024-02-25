@@ -8,7 +8,7 @@ const AnimalCard = ({ animal }) => {
         if (!token) {
           throw new Error('No access token found');
         }
-      const response = await fetch(`http://localhost:3000/annonce/not/${animal.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/annonce/not/${animal.id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const AnimalCard = ({ animal }) => {
         if (!token) {
           throw new Error('No access token found');
         }
-      const response = await fetch(`http://localhost:3000/annonce/${animal.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/annonce/${animal.id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const AnimalCard = ({ animal }) => {
       {/* Add a placeholder for the animal picture */}
       <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
         {/* Replace 'animal.picture' with the actual property that holds the picture URL */}
-        <img src={`http://localhost:3000/animal/animal-image/${animal.animal.photo}`} alt="Animal" className="w-full h-full object-cover" />
+        <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal/animal-image/${animal.animal.photo}`} alt="Animal" className="w-full h-full object-cover" />
       </div>
       
       <p>description : {animal.description}</p>

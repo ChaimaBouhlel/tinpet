@@ -1,7 +1,10 @@
 import React from 'react';
-import { FaHeart } from 'react-icons/fa';
+import {AnimalType} from "@/types/global";
 
-const PetDetail = ({ animal }) => {
+interface PetDetailProps {
+  animal: AnimalType;
+}
+const PetDetail = ({ animal }:PetDetailProps) => {
   const containerStyle = "mx-auto mt-8 w-3/4 bg-gray-200 p-8";
   const flexContainerStyle = "flex";
   const imageSectionStyle = "w-1/2 pr-4"; // Added paddingRight for spacing
@@ -18,7 +21,7 @@ const PetDetail = ({ animal }) => {
     <div className={containerStyle}>
       <div className={flexContainerStyle}>
         <div className={imageSectionStyle}>
-          <img className={imageStyle} src={`http://localhost:3000/animal/animal-image/${animal.photo}`} alt={name} />
+          <img className={imageStyle} src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal/animal-image/${animal.photo}`} alt={name} />
         </div>
 
         <div className={detailsSectionStyle}>

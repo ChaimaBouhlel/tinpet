@@ -17,7 +17,7 @@ const UpdateProfileForm = () => {
         if (!token) {
           throw new Error('No access token found');
         }
-        const response = await fetch(`http://localhost:3000/user/${router.query.userId}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${router.query.userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const UpdateProfileForm = () => {
 
       const userId = router.query.userId;
 
-      const response = await fetch(`http://localhost:3000/user/${userId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

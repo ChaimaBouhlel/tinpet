@@ -1,11 +1,10 @@
-import Banner from "@/components/Home/Banner";
-import Categories from "@/components/Home/Categories";
-import {NextPageWithLayout} from "@/types/global";
+import axios from 'axios';
+import {AnimalType, NextPageWithLayout} from "@/types/global";
 import {ReactElement} from "react";
 import Layout from "@/layout";
-import PetDetail from "@/components/PetDetail"
+import PetDetail from "@/components/petDetail"
 
-const Detail = ({animal}) => {
+const Detail = ({animal}: { animal: AnimalType }) => {
     return (
         <>
             <PetDetail animal={animal} />
@@ -20,28 +19,29 @@ Detail.getLayout = function getLayout(page: ReactElement) {
         </Layout>
     );
 };
+
 export async function getStaticPaths() {
-  const response = await fetch(`http://localhost:3000/animal`);
-  const data = await response.json();
-  const paths = data.map((animal) => (
-  {
-    params: { PetId: JSON.stringify(animal.id) },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal`);
+    const data = response.data;
+    const paths = data.map((animal: AnimalType) => (
+        {
+            params: { PetId: JSON.stringify(animal.id) },
+        }));
+    return {
+        paths,
+        fallback: false,
+    };
 }
 
-export async function getStaticProps(context) {
-  const { params } = context;
-  const response = await fetch(`http://localhost:3000/animal/${params.PetId}`);
-  const data = await response.json();
-  return {
-    props: {
-      animal: data,
-    },
-  };
+export async function getStaticProps(context: any) {
+    const { params }: { params: { PetId: string } } = context;
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal/${params.PetId}`);
+    const data = response.data;
+    return {
+        props: {
+            animal: data,
+        },
+    };
 }
 
 export default Detail;

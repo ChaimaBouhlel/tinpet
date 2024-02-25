@@ -2,7 +2,11 @@ import Nav from "@/layout/Nav";
 import Footer from "@/layout/Footer";
 import React from "react"
 
-const Layout: React.FC= ({ children }) => {
+interface LayoutProps {
+    children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <>
             <Nav/>
@@ -11,4 +15,5 @@ const Layout: React.FC= ({ children }) => {
         </>
     );
 }
+
 export default Layout

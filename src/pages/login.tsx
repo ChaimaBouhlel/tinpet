@@ -1,6 +1,6 @@
 import Link from "next/link";
 import axios from "axios";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/router";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {useRecoilState, useRecoilValue} from "recoil";
@@ -9,7 +9,14 @@ import authentication from "@/atoms/authentication";
 import jwtDecode from "jwt-decode"
 import Cookies from 'js-cookie';
 
+interface PayloadType {
+   email: string
+}
 
+interface ErrorType {
+    message: string
+    // Define the structure of an error here
+}
 const Login = () => {
     const router = useRouter()
     const [authState, setAuthState] = useRecoilState(authentication)
@@ -21,7 +28,7 @@ const Login = () => {
 
     const mutation = useMutation({
         mutationFn: async (data) => {
-            return await axios.post(process.env.NEXT_PUBLIC_SIGN_IN_URL,
+            return await axios.post(process.env.NEXT_PUBLIC_SIGN_IN_URL || '',
                 {email, password},
                 {
                     headers: {'Content-Type': 'application/json'},
@@ -34,15 +41,15 @@ const Login = () => {
             const token = data.access_token;
             Cookies.set('token', token); 
             console.log(data.access_token)
-            const payload = jwtDecode(data.access_token)
+            const payload = jwtDecode(data.access_token) as PayloadType;
             console.log(payload)
-            if(payload.email == email) {
+            if(payload.email === email) {
                 setAuthUser({email})
                 console.log(authUser)
                 setAuthState(true)
             }
         },
-        onError: error => {
+        onError: (error :ErrorType) => {
             setErrMsg(error.message)
         }
     })
@@ -55,7 +62,7 @@ const Login = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         mutation.mutate();
     }

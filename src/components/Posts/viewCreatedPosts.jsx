@@ -16,7 +16,7 @@ const ViewCreatedPosts = () => {
         if (!token) {
           throw new Error('No access token found');
         }
-        const response = await fetch(`http://localhost:3000/user/${userId}/published-announcements`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}/published-announcements`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

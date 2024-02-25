@@ -16,7 +16,7 @@ const UserProfile = () => {
           throw new Error('No access token found');
         }
 
-        const response = await fetch(`http://localhost:3000/user/${userId}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const UserProfile = () => {
         <div className="bg-white w-2/3 p-8 rounded shadow">
           <div className="flex items-center mb-6">
             <div className="w-24 h-24 rounded-full overflow-hidden mr-4">
-              <img src={`http://localhost:3000/user/profile-image/${user.profilePhoto}`} alt="Profile Photo" />
+              <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile-image/${user.profilePhoto}`} alt="Profile Photo" />
             </div>
             <div>
               <h2 className="text-3xl font-bold">{`${user.firstname} ${user.lastname}`}</h2>

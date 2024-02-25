@@ -16,7 +16,7 @@ const ViewLikedPosts = () => {
                 if (!token) {
                     throw new Error('No access token found');
                 }
-                const response = await fetch(`http://localhost:3000/user/fav/${userId}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/fav/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

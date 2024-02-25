@@ -20,7 +20,7 @@ const Form2 = () => {
       const animalId = router.query.animalId;
       const userId = router.query.userId;
 
-      const response = await fetch(`http://localhost:3000/animal/${animalId}/uploadImage`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal/${animalId}/uploadImage`, {
         method: 'POST',
         body: formData
       });

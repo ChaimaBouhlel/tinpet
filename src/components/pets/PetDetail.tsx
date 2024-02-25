@@ -1,6 +1,10 @@
 import React from 'react';
+import {AnimalType} from "@/types/global";
 
-const PetDetail = ({animal}) => {
+interface PetDetailProps {
+    animal: AnimalType;
+}
+const PetDetail = ({ animal }:PetDetailProps) => {
     const containerStyle = "mx-auto mt-8 w-3/4 bg-gray-200 p-8";
     const imageContainerStyle = "flex items-center justify-center";
     const imageStyle = "w-full max-w-xs mb-4";

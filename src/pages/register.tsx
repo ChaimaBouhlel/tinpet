@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Check, Info, X} from "react-feather"
 import axios from "axios";
 import Link from "next/link";
@@ -9,6 +9,9 @@ const USER_REGEX = /^[A-z]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+interface ErrorType {
+    message: string
+}
 const Register = () => {
 
     const router = useRouter()
@@ -60,7 +63,7 @@ const Register = () => {
 
     const mutation = useMutation({
         mutationFn: async (data) => {
-            return await axios.post(process.env.NEXT_PUBLIC_REGISTER_URL,
+            return await axios.post(process.env.NEXT_PUBLIC_REGISTER_URL || '',
                 {firstname: firstName, lastname: lastName, email, password: pwd},
                 {
                     headers: {'Content-Type': 'application/json'},
@@ -80,12 +83,12 @@ const Register = () => {
                 router.push("/login")
             }, 5000)
         },
-        onError: error => {
+        onError: (error: ErrorType) => {
             setErrMsg(error.message)
         }
     })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         mutation.mutate();
     }
@@ -225,7 +228,7 @@ const Register = () => {
                             <Info size={24} color="gray"/>
                             Must match the first password input field.
                         </div>
-                        <button disabled={!validLastName || !validName || !validPwd || !validMatch ? true : false}
+                        <button disabled={!validLastName || !validName || !validPwd || !validMatch}
                                 className="mt-3 bg-amber-700 text-amber-50 font-bold font-poppins rounded-lg py-2 hover:shadow-xl">Sign
                             Up
                         </button>

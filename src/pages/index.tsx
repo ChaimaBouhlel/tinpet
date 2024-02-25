@@ -35,7 +35,9 @@ const Home: NextPageWithLayout<{}> = () => {
 }
 
 Home.getLayout = function getLayout(page: ReactElement) {
+    // @ts-ignore
     return (
+        // @ts-ignore
         <Layout>
             {page}
         </Layout>

@@ -1,10 +1,11 @@
-import Post from "@/components/Feed/Post";
+import Post from "@/components/Feed/post";
 import Layout from "@/layout";
 import axios from 'axios';
 import React, {useState} from "react";
+import {PostType} from "@/types/global";
 
-const Feed = ({ posts }) => {
-  const postsPerRow = 5;
+
+const Feed = ({ posts }: { posts: PostType[] }) => {  const postsPerRow = 5;
   const rows = Math.ceil(posts.length / postsPerRow);
   const feedStyle = "flex flex-col items-center";
   const rowStyle = "flex justify-center mb-8 sm:mb-12";
@@ -22,7 +23,7 @@ const Feed = ({ posts }) => {
     console.log(sexe)
     console.log(constraintsSexe)
     console.log(constraintsCat)
-    const SEARCH_URL = `http://localhost:3000/annonce/search?minAge=${minAge||0}&maxAge=${maxAge||100}${constraintsCat}${constraintsSexe}`
+    const SEARCH_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/annonce/search?minAge=${minAge||0}&maxAge=${maxAge||100}${constraintsCat}${constraintsSexe}`
     console.log(SEARCH_URL)
     try {
       const response = await axios.get(
@@ -105,13 +106,13 @@ const Feed = ({ posts }) => {
 );
 };
 
-Feed.getLayout = function getLayout(page) {
+Feed.getLayout = function getLayout(page: React.ReactNode) {
   return <Layout>{page}</Layout>;
 };
 
 export async function getStaticProps() {
   try {
-    const response = await axios.get('http://localhost:3000/annonce');
+    const response = await axios.get('${process.env.NEXT_PUBLIC_BACKEND_URL}/annonce');
     const posts = response.data;
     return {
       props: {
