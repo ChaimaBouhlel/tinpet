@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    tools any
+    tools {
+        nodejs 'node21'
+    }
 
     stages {
         stage('fetch code') {
