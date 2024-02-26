@@ -19,7 +19,11 @@ pipeline {
                 bat 'npm install'
                 bat 'npm run build'
             }
+            steps {
+                bat 'docker build -t chaimabouhlel/dp-alpine:latest .'
+            }
         }
+        
         stage('Login') {
             steps {
                 bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
