@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
+        registry = 'chaimabouhlel/frontend'
+        registryCredential = 'docker-hub-credentials'
+        dockerImage = ''
     }
     tools {
         nodejs 'node21'
@@ -14,24 +17,28 @@ pipeline {
             }
         }
 
-        stage('build') {
+        stage('next build') {
             steps {
                 bat 'npm install'
                 bat 'npm run build'
             }
+        }
+
+        stage('Building our image') {
             steps {
-                bat 'docker build -t chaimabouhlel/dp-alpine:latest .'
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
-        
-        stage('Login') {
+
+        stage('Deploy our image') {
             steps {
-                bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-        stage('Push') {
-            steps {
-                bat 'docker push chaimabouhlel/dp-alpine:latest'
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }
