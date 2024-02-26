@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AnimalType, NextPageWithLayout} from "@/types/global";
+import {AnimalType} from "@/types/global";
 import {ReactElement} from "react";
 import Layout from "@/layout";
 import PetDetail from "@/components/petDetail"
@@ -21,7 +21,7 @@ Detail.getLayout = function getLayout(page: ReactElement) {
 };
 
 export async function getStaticPaths() {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal`);
+    const response = await axios.get(`http://localhost:3000/animal`);
     const data = response.data;
     const paths = data.map((animal: AnimalType) => (
         {
@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: any) {
     const { params }: { params: { PetId: string } } = context;
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/animal/${params.PetId}`);
+    const response = await axios.get(`http://localhost:3000/animal/${params.PetId}`);
     const data = response.data;
     return {
         props: {
