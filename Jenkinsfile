@@ -16,14 +16,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ChaimaBouhlel/tinpet.git'
             }
         }
-
-        stage('next build') {
-            steps {
-                bat 'npm install'
-                bat 'npm run build'
-            }
-        }
-
         stage('Building our image') {
             steps {
                 script {
